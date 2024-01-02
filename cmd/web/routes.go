@@ -2,7 +2,7 @@ package main
 
 import "net/http"
 
-func (app *application) routes() *http.ServeMux {
+func (app *application) routes() http.Handler {
 	// Use the http.NewServeMux() function to initialize a new servemux, then
 	// register the home function as the handler for the "/" URL pattern.
 	mux := http.NewServeMux()
@@ -20,5 +20,5 @@ func (app *application) routes() *http.ServeMux {
 	mux.HandleFunc("/snippet/create", app.snippetCreate)
 	mux.HandleFunc("/snippet/view", app.snippetView)
 
-	return mux
+	return secureHeaders(mux)
 }
